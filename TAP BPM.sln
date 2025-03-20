@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.12.35527.113
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TAP BPM", "TAP BPM\TAP BPM.csproj", "{B087AADF-95CD-451C-9028-16620D744AF2}"
+EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "SetupTAP", "SetupTAP\SetupTAP.vdproj", "{974DB6D3-74C3-4C96-9424-5C08F9A6A9E3}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B087AADF-95CD-451C-9028-16620D744AF2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B087AADF-95CD-451C-9028-16620D744AF2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B087AADF-95CD-451C-9028-16620D744AF2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B087AADF-95CD-451C-9028-16620D744AF2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{974DB6D3-74C3-4C96-9424-5C08F9A6A9E3}.Debug|Any CPU.ActiveCfg = Debug
+		{974DB6D3-74C3-4C96-9424-5C08F9A6A9E3}.Release|Any CPU.ActiveCfg = Release
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
