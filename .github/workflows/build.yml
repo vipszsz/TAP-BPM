@@ -1,0 +1,61 @@
+name: build
+
+on:
+  push:
+    branches: [main, master]
+    tags: ["v*"]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: "9.0.x"
+
+      - name: Restore
+        run: dotnet restore TapBPM.sln
+
+      - name: Build
+        run: dotnet build TapBPM.sln -c Release --no-restore
+
+      - name: Test
+        run: dotnet test TapBPM.sln -c Release --no-build --verbosity normal
+
+      - name: Publish
+        run: dotnet publish src/TapBpm/TapBpm.csproj -c Release -o artifacts/publish
+
+      # Inno Setup ships with the windows-latest runner image, but is not on PATH there,
+      # so resolve ISCC.exe rather than assuming either.
+      - name: Build installer
+        shell: pwsh
+        run: |
+          $iscc = Get-Command iscc -ErrorAction SilentlyContinue
+          if (-not $iscc) {
+            $candidates = @(
+              "${env:ProgramFiles(x86)}\Inno Setup 6\ISCC.exe",
+              "${env:ProgramFiles}\Inno Setup 6\ISCC.exe"
+            )
+            $path = $candidates | Where-Object { Test-Path $_ } | Select-Object -First 1
+            if (-not $path) { throw "ISCC.exe not found" }
+          } else {
+            $path = $iscc.Source
+          }
+          & $path installer\TapBPM.iss
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: installer
+          path: artifacts/TapBPM-*-setup.exe
+
+      - name: Publish release
+        if: startsWith(github.ref, 'refs/tags/v')
+        uses: softprops/action-gh-release@v2
+        with:
+          files: artifacts/TapBPM-*-setup.exe
+          generate_release_notes: true

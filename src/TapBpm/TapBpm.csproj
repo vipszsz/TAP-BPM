@@ -1,0 +1,57 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net9.0-windows</TargetFramework>
+    <UseWindowsForms>true</UseWindowsForms>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <LangVersion>latest</LangVersion>
+    <RootNamespace>TapBpm</RootNamespace>
+    <AssemblyName>TapBPM</AssemblyName>
+    <ApplicationIcon>Assets\tap-bpm.ico</ApplicationIcon>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+    <!-- The designer is not used: the whole UI is laid out in code so it scales with DPI. -->
+    <EnableWindowsTargeting>true</EnableWindowsTargeting>
+    <!-- Per-monitor v2 so the window stays crisp across monitors with different scaling. -->
+    <ApplicationHighDpiMode>PerMonitorV2</ApplicationHighDpiMode>
+    <!-- Declared here, not just under Release, so restore writes assets for this RID
+         whatever configuration it runs in. Without it a Release build that skips restore
+         fails, because the Release-only RuntimeIdentifier has nothing restored for it. -->
+    <RuntimeIdentifiers>win-x64</RuntimeIdentifiers>
+    <SatelliteResourceLanguages>en</SatelliteResourceLanguages>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <Product>Tap BPM</Product>
+    <Company>Vipz</Company>
+    <Authors>Vipz</Authors>
+    <Description>Minimal tap tempo / BPM detector.</Description>
+    <Copyright>Copyright (c) Vipz</Copyright>
+    <Version>2.0.0</Version>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)' == 'Release'">
+    <PublishSingleFile>true</PublishSingleFile>
+    <SelfContained>true</SelfContained>
+    <RuntimeIdentifier>win-x64</RuntimeIdentifier>
+    <IncludeNativeLibrariesForSelfExtract>true</IncludeNativeLibrariesForSelfExtract>
+    <!-- Left off deliberately: the installer's LZMA2 compresses the payload far better
+         than single-file compression does, and an uncompressed bundle starts faster
+         because nothing has to be inflated on every launch. -->
+    <EnableCompressionInSingleFile>false</EnableCompressionInSingleFile>
+    <DebugType>none</DebugType>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="NAudio" Version="2.2.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Assets\Fonts\IBMPlexMono-Regular.ttf" />
+    <EmbeddedResource Include="Assets\Fonts\IBMPlexMono-Bold.ttf" />
+    <EmbeddedResource Include="Assets\Images\logo.png" />
+    <EmbeddedResource Include="Assets\tap-bpm.ico" />
+  </ItemGroup>
+
+</Project>
