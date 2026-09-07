@@ -15,6 +15,10 @@
     <EnableWindowsTargeting>true</EnableWindowsTargeting>
     <!-- Per-monitor v2 so the window stays crisp across monitors with different scaling. -->
     <ApplicationHighDpiMode>PerMonitorV2</ApplicationHighDpiMode>
+    <!-- Declared here, not just under Release, so restore writes assets for this RID
+         whatever configuration it runs in. Without it a Release build that skips restore
+         fails, because the Release-only RuntimeIdentifier has nothing restored for it. -->
+    <RuntimeIdentifiers>win-x64</RuntimeIdentifiers>
     <SatelliteResourceLanguages>en</SatelliteResourceLanguages>
   </PropertyGroup>
 
